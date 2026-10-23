@@ -1,7 +1,7 @@
 # Análise Financeira e Desempenho de Mercado — WEG S.A. (WEGE3)
 
 <p align="center">
-  <img src="SG\_Site.png" alt="WEG S.A. — Análise Financeira e Desempenho de Mercado" width="600">
+  <img src="SG_Site.png" alt="WEG S.A. — Análise Financeira e Desempenho de Mercado" width="600">
 </p>
 
 <p align="center">
