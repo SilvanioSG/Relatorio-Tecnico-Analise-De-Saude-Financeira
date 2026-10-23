@@ -1,10 +1,9 @@
-# .github/workflows/publish.yml
 name: Atualizar e Publicar Relatório
 
 on:
   push:
     branches: [main]
-  workflow_dispatch:        # 👈 Habilita o BOTÃO "Run workflow" na aba Actions
+  workflow_dispatch:        # 👈 Habilita o botão "Run workflow"
 
 permissions:
   contents: read
@@ -17,15 +16,10 @@ concurrency:
 
 jobs:
   build-and-deploy:
+    environment:            # 👈 Corrige o erro "Missing environment"
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-build-and-deploy:
-    environment:          # 👈 ADICIONE ESTAS DUAS LINHAS
-      name: github-pages  # 👈 
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout do repositório
-        uses: actions/checkout@v4
-        # ... o resto do arquivo continua igual
 
     steps:
       - name: Checkout do repositório
@@ -44,10 +38,7 @@ build-and-deploy:
 
       - name: Executar Notebook e gerar HTML
         run: |
-          jupyter nbconvert \
-            --to html \
-            --execute \
-            --ExecutePreprocessor.timeout=600 \
+          jupyter nbconvert --to html --execute --no-input --template classic \
             --output index.html \
             RelatorioTecnicoAnaliseDeSaudeFinanceira.ipynb
 
@@ -55,7 +46,7 @@ build-and-deploy:
         run: |
           mkdir -p _site
           cp index.html _site/
-          # copia o logo se existir (usado no header do notebook)
+          # Copia imagens e outros arquivos se existirem
           [ -f SG_Site.png ] && cp SG_Site.png _site/ || true
           [ -f README.md ] && cp README.md _site/ || true
 
