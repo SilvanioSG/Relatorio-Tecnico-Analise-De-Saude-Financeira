@@ -4,6 +4,8 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  schedule:
+    - cron: '0 22 * * 1-5'  # 👈 Roda de segunda a sexta às 19h (horário de Brasília)
 
 permissions:
   contents: read
@@ -41,21 +43,10 @@ jobs:
             --output index.html \
             RelatorioTecnicoAnaliseDeSaudeFinanceira.ipynb
 
-      - name: Verificar arquivo gerado
-        run: |
-          echo "Arquivos gerados na raiz:"
-          ls -la *.html
-          # Garante que o arquivo se chama exatamente index.html
-          if [ ! -f index.html ]; then
-            echo "ERRO: index.html não foi gerado!"
-            exit 1
-          fi
-
       - name: Preparar site
         run: |
           mkdir -p _site
           cp index.html _site/
-          # Copia imagem de logo se existir, mas NÃO copia o README.md
           [ -f SG_Site.png ] && cp SG_Site.png _site/ || true
 
       - name: Configurar Pages
