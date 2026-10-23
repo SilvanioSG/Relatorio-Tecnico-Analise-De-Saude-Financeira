@@ -1,0 +1,6 @@
+jupyter
+nbconvert
+pandas
+numpy
+yfinance
+plotly
