@@ -18,6 +18,14 @@ concurrency:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+build-and-deploy:
+    environment:          # 👈 ADICIONE ESTAS DUAS LINHAS
+      name: github-pages  # 👈 
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do repositório
+        uses: actions/checkout@v4
+        # ... o resto do arquivo continua igual
 
     steps:
       - name: Checkout do repositório
