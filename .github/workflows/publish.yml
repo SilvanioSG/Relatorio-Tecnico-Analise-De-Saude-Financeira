@@ -16,7 +16,7 @@ concurrency:
 
 jobs:
   build-and-deploy:
-    environment:            # 👈 Corrige o erro "Missing environment"
+    environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
@@ -38,8 +38,9 @@ jobs:
 
       - name: Executar Notebook e gerar HTML
         run: |
+          # Note que o output agora é apenas 'index' (sem o .html)
           jupyter nbconvert --to html --execute --no-input --no-prompt --template classic \
-            --output index.html \
+            --output index \
             RelatorioTecnicoAnaliseDeSaudeFinanceira.ipynb
 
       - name: Preparar artefato do site
@@ -47,7 +48,9 @@ jobs:
           mkdir -p _site
           cp index.html _site/
           [ -f SG_Site.png ] && cp SG_Site.png _site/ || true
-          [ -f README.md ] && cp README.md _site/ || true
+          # NÃO copiamos o README.md para evitar que o GitHub Pages o exiba no lugar do relatório
+          echo "Arquivos na pasta de deploy:"
+          ls -la _site/
 
       - name: Configurar GitHub Pages
         uses: actions/configure-pages@v5
