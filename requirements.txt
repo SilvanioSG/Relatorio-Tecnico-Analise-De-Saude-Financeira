@@ -3,4 +3,4 @@ nbconvert
 pandas
 numpy
 yfinance
-plotly
+plotly>=6.0.1
