@@ -5,7 +5,7 @@ on:
     branches: [main]
   workflow_dispatch:
   schedule:
-    - cron: '0 22 * * 1-5'  # 👈 Roda de segunda a sexta às 19h (horário de Brasília)
+    - cron: '0 22 * * 1-5'  # Roda de segunda a sexta às 19h (horário de Brasília)
 
 permissions:
   contents: read
