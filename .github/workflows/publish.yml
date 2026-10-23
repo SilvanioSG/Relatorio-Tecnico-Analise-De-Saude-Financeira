@@ -38,7 +38,7 @@ jobs:
 
       - name: Executar Notebook e gerar HTML
         run: |
-          jupyter nbconvert --to html --execute --no-input --template classic \
+          jupyter nbconvert --to html --execute --no-input --no-prompt --template classic \
             --output index.html \
             RelatorioTecnicoAnaliseDeSaudeFinanceira.ipynb
 
@@ -46,7 +46,6 @@ jobs:
         run: |
           mkdir -p _site
           cp index.html _site/
-          # Copia imagens e outros arquivos se existirem
           [ -f SG_Site.png ] && cp SG_Site.png _site/ || true
           [ -f README.md ] && cp README.md _site/ || true
 
